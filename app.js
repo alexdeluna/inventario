@@ -111,3 +111,4 @@ async function exportar(formato) {
     document.getElementById('status').innerText = "Concluído.";
 }
 
+
