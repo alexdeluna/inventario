@@ -1,61 +1,74 @@
-// Configuração Supabase (Substitua pelas suas chaves)
-const _supabase = supabase.createClient('SUA_URL_SUPABASE', 'SUA_KEY_ANON');
+const SUPABASE_URL = 'https://wzpaanrwayvkxiqpbblu.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_R901IMT2sfdRFf4ARo6qkA_3Geb8l0m';
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// 1. CAPTURA DE GPS
-async function getGeo() {
-    return new Promise((resolve) => {
-        navigator.geolocation.getCurrentPosition(pos => {
-            resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-        }, () => resolve({ lat: null, lng: null }));
-    });
-}
+const form = document.getElementById('form-inventario');
+const btnSalvar = document.getElementById('btn-salvar');
+const statusMsg = document.getElementById('status');
 
-// 2. OCR COM IA (Tesseract.js)
-async function startOCR() {
-    const video = document.getElementById('camera-preview');
-    video.style.display = 'block';
-    // Lógica para capturar frame do vídeo e passar para Tesseract.recognize()
-    // Após detectar: document.getElementById('serie').value = result.data.text;
-}
-
-// 3. VALIDAÇÃO DE DUPLICIDADE & SALVAMENTO
-document.getElementById('inventory-form').onsubmit = async (e) => {
+// Função de Salvar
+form.onsubmit = async (e) => {
     e.preventDefault();
-    const serie = document.getElementById('serie').value;
-    const tombamento = document.getElementById('tombamento').value;
+    
+    btnSalvar.disabled = true;
+    statusMsg.innerText = "Verificando e salvando...";
 
-    // Verificar duplicidade no Supabase
-    const { data: existente } = await _supabase
-        .from('inventario')
-        .select('setor, operador_id')
-        .or(`numero_serie.eq.${serie},numero_tombamento.eq.${tombamento}`)
-        .single();
-
-    if (existente) {
-        alert(`ALERTA: Equipamento já cadastrado no setor ${existente.setor}!`);
-        return;
-    }
-
-    const geo = await getGeo();
-    const payload = {
+    const dados = {
         setor: document.getElementById('setor').value,
-        numero_serie: serie,
-        latitude: geo.lat,
-        longitude: geo.lng,
-        data_registro: new Date().toISOString()
+        tipo: document.getElementById('tipo').value,
+        numero_serie: document.getElementById('serie').value,
+        numero_tombamento: document.getElementById('tombamento').value,
+        observacao: document.getElementById('obs').value
     };
 
-    // Tenta enviar ou salva no IndexedDB se offline
-    if (navigator.onLine) {
-        await _supabase.from('inventario').insert([payload]);
-        alert("Cadastrado com sucesso!");
+    const { data, error } = await _supabase
+        .from('inventario')
+        .insert([dados])
+        .select('codigo_inventario')
+        .single();
+
+    if (error) {
+        if (error.code === '23505') {
+            alert("ERRO: Este Número de Série ou Tombamento já existe no banco!");
+        } else {
+            alert("Erro: " + error.message);
+        }
+        statusMsg.innerText = "Erro ao processar.";
     } else {
-        saveToIndexedDB(payload);
-        alert("Salvo localmente (Offline). Sincronizará ao conectar.");
+        alert(`SUCESSO! Gerado código: ${data.codigo_inventario}`);
+        statusMsg.innerText = `Último item: ${data.codigo_inventario}`;
+        form.reset();
     }
+    btnSalvar.disabled = false;
 };
 
-// Registro do Service Worker para PWA
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
+// Função Única de Exportação
+async function exportar(formato) {
+    statusMsg.innerText = "Buscando dados para exportação...";
+    
+    const { data, error } = await _supabase
+        .from('inventario')
+        .select('*')
+        .order('id', { ascending: true });
+
+    if (error) return alert("Erro ao baixar dados: " + error.message);
+    if (data.length === 0) return alert("Banco de dados vazio.");
+
+    if (formato === 'excel') {
+        const ws = XLSX.utils.json_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Inventario");
+        XLSX.writeFile(wb, "Inventario_Geral.xlsx");
+    } else {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('l', 'mm', 'a4'); // Horizontal para caber mais colunas
+        doc.text("Relatório Geral de Inventário", 14, 10);
+        
+        const head = [["Código", "Setor", "Tipo", "Série", "Tombamento", "Data"]];
+        const body = data.map(i => [i.codigo_inventario, i.setor, i.tipo, i.numero_serie, i.numero_tombamento, new Date(i.data_registro).toLocaleDateString()]);
+        
+        doc.autoTable({ head, body, startY: 15 });
+        doc.save("Relatorio_Inventario.pdf");
+    }
+    statusMsg.innerText = "Exportação concluída.";
 }
