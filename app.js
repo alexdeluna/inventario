@@ -27,6 +27,10 @@ form.onsubmit = async (e) => {
         .select('codigo_inventario')
         .single();
 
+    console.log("Resultado:", data, "Erro:", error);
+
+
+    
     if (error) {
         if (error.code === '23505') {
             alert("ERRO: Este Número de Série ou Tombamento já existe no banco!");
@@ -72,3 +76,4 @@ async function exportar(formato) {
     }
     statusMsg.innerText = "Exportação concluída.";
 }
+
