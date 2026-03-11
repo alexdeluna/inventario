@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Inventário Inteligente</title>
+    <link rel="stylesheet" href="visual.css">
+    <link rel="manifest" href="manifest.json">
+    <!-- Bibliotecas Necessárias -->
+    <script src="https://cdn.jsdelivr.net"></script>
+    <script src="https://cdn.jsdelivr.net"></script>
+    <script src="https://unpkg.com"></script>
+</head>
+<body>
+    <div id="offline-msg" class="offline-badge">MODO OFFLINE ATIVO</div>
+    <div class="header">INVENTÁRIO INTELIGENTE</div>
+
+    <!-- MODO SCANNER / CÂMERA -->
+    <div class="card" id="scanner-section">
+        <video id="camera-preview" autoplay playsinline></video>
+        <button class="btn btn-scan" onclick="startOCR()"><i class="icon">📷</i> ESCANEAR NÚMERO DE SÉRIE (IA)</button>
+        <button class="btn btn-scan" style="background: #17a2b8;" onclick="startQR()"><i class="icon">QR</i> LER QR / CÓDIGO BARRAS</button>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <div class="card">
+        <form id="inventory-form">
+            <input type="text" id="setor" placeholder="Setor (ex: TI, RH)" required>
+            <input type="text" id="responsavel" placeholder="Responsável pelo Setor">
+            <select id="tipo">
+                <option value="">Tipo de Equipamento</option>
+                <option value="computador">Computador</option>
+                <option value="monitor">Monitor</option>
+                <option value="notebook">Notebook</option>
+                <option value="impressora">Impressora</option>
+            </select>
+            <input type="text" id="serie" placeholder="Número de Série" required>
+            <input type="text" id="tombamento" placeholder="Número de Tombamento">
+            
+            <div style="display: flex; gap: 10px;">
+                <button type="button" class="btn" style="background:#555;" onclick="capturePhoto()">FOTO</button>
+                <input type="file" id="photo-upload" accept="image/*" capture="environment" hidden>
+            </div>
+
+            <button type="submit" class="btn btn-save">SALVAR EQUIPAMENTO</button>
+        </form>
+    </div>
+
+    <nav class="nav-bottom">
+        <a href="#scan" class="nav-item">Novo</a>
+        <a href="#mapa" class="nav-item" onclick="initMap()">Mapa</a>
+        <a href="#dashboard" class="nav-item">Painel</a>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>
