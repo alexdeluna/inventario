@@ -7,16 +7,15 @@
     <link rel="stylesheet" href="visual.css">
     <link rel="manifest" href="manifest.json">
 
-   <!-- 1. BIBLIOTECA DO SUPABASE (Link atualizado e estável) -->
-<script src="https://cdn.jsdelivr.net"></script>
+    <!-- 1. BIBLIOTECA DO SUPABASE (Link Completo e Estável) -->
+    <script src="https://cdn.jsdelivr.net"></script>
 
-<!-- 2. BIBLIOTECA PARA EXCEL -->
-<script src="https://cdnjs.cloudflare.com"></script>
+    <!-- 2. BIBLIOTECA PARA EXCEL (Link Completo) -->
+    <script src="https://cdnjs.cloudflare.com"></script>
 
-<!-- 3. BIBLIOTECAS PARA PDF -->
-<script src="https://cdnjs.cloudflare.com"></script>
-<script src="https://cdnjs.cloudflare.com"></script>
-
+    <!-- 3. BIBLIOTECAS PARA PDF (Links Completos) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
     <div class="header">INVENTÁRIO GOVERNAMENTAL</div>
@@ -34,6 +33,7 @@
                     <option value="Monitor">Monitor</option>
                     <option value="Notebook">Notebook</option>
                     <option value="Impressora">Impressora</option>
+                    <option value="Outros">Outros</option>
                 </select>
 
                 <label>Número de Série</label>
@@ -47,7 +47,7 @@
 
                 <button type="submit" id="btn-salvar" class="btn btn-save">SALVAR REGISTRO</button>
             </form>
-            <div id="status" class="sync-status">Aguardando preenchimento...</div>
+            <div id="status" class="sync-status">Aguardando conexão...</div>
         </div>
 
         <div class="card">
@@ -59,17 +59,7 @@
         </div>
     </div>
 
-      <!-- Links COMPLETOS para as bibliotecas de exportação (CORREÇÃO AQUI) 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> -->
-
-      <!-- O SEU CÓDIGO JS SEMPRE DEVE VIR POR ÚLTIMO -->
+    <!-- O SEU CÓDIGO JS SEMPRE POR ÚLTIMO -->
     <script src="app.js"></script>
 </body>
 </html>
-
-
-
-
-
