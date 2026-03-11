@@ -1,6 +1,6 @@
 const SUPABASE_URL = 'https://wzpaanrwayvkxiqpbblu.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_R901IMT2sfdRFf4ARo6qkA_3Geb8l0m';
-const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const form = document.getElementById('form-inventario');
 const btnSalvar = document.getElementById('btn-salvar');
@@ -76,4 +76,5 @@ async function exportar(formato) {
     }
     statusMsg.innerText = "Exportação concluída.";
 }
+
 
