@@ -6,7 +6,7 @@ const form = document.getElementById('form-inventario');
 const btnSalvar = document.getElementById('btn-salvar');
 const statusMsg = document.getElementById('status');
 
-// Função de Salvar
+// Função de Salvar.
 form.onsubmit = async (e) => {
     e.preventDefault();
     
@@ -76,5 +76,6 @@ async function exportar(formato) {
     }
     statusMsg.innerText = "Exportação concluída.";
 }
+
 
 
