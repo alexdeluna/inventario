@@ -2,56 +2,55 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Inventário Inteligente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvGov PWA</title>
     <link rel="stylesheet" href="visual.css">
     <link rel="manifest" href="manifest.json">
-    <!-- Bibliotecas Necessárias -->
+    <!-- Bibliotecas Externas -->
     <script src="https://cdn.jsdelivr.net"></script>
-    <script src="https://cdn.jsdelivr.net"></script>
-    <script src="https://unpkg.com"></script>
+    <script src="https://cdnjs.cloudflare.com"></script>
+    <script src="https://cdnjs.cloudflare.com"></script>
+    <script src="https://cdnjs.cloudflare.com"></script>
 </head>
 <body>
-    <div id="offline-msg" class="offline-badge">MODO OFFLINE ATIVO</div>
-    <div class="header">INVENTÁRIO INTELIGENTE</div>
+    <div class="header">INVENTÁRIO GOVERNAMENTAL</div>
+    <div class="container">
+        <div class="card">
+            <form id="form-inventario">
+                <label>Setor</label>
+                <input type="text" id="setor" required placeholder="Ex: Recepção">
+                
+                <label>Tipo de Equipamento</label>
+                <select id="tipo" required>
+                    <option value="">Selecione...</option>
+                    <option value="Desktop">Desktop</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Notebook">Notebook</option>
+                    <option value="Impressora">Impressora</option>
+                </select>
 
-    <!-- MODO SCANNER / CÂMERA -->
-    <div class="card" id="scanner-section">
-        <video id="camera-preview" autoplay playsinline></video>
-        <button class="btn btn-scan" onclick="startOCR()"><i class="icon">📷</i> ESCANEAR NÚMERO DE SÉRIE (IA)</button>
-        <button class="btn btn-scan" style="background: #17a2b8;" onclick="startQR()"><i class="icon">QR</i> LER QR / CÓDIGO BARRAS</button>
-    </div>
+                <label>Número de Série</label>
+                <input type="text" id="serie" required placeholder="S/N do Fabricante">
 
-    <!-- FORMULÁRIO -->
-    <div class="card">
-        <form id="inventory-form">
-            <input type="text" id="setor" placeholder="Setor (ex: TI, RH)" required>
-            <input type="text" id="responsavel" placeholder="Responsável pelo Setor">
-            <select id="tipo">
-                <option value="">Tipo de Equipamento</option>
-                <option value="computador">Computador</option>
-                <option value="monitor">Monitor</option>
-                <option value="notebook">Notebook</option>
-                <option value="impressora">Impressora</option>
-            </select>
-            <input type="text" id="serie" placeholder="Número de Série" required>
-            <input type="text" id="tombamento" placeholder="Número de Tombamento">
-            
-            <div style="display: flex; gap: 10px;">
-                <button type="button" class="btn" style="background:#555;" onclick="capturePhoto()">FOTO</button>
-                <input type="file" id="photo-upload" accept="image/*" capture="environment" hidden>
+                <label>Número de Tombamento</label>
+                <input type="text" id="tombamento" required placeholder="Patrimônio">
+
+                <label>Observações</label>
+                <textarea id="obs" rows="2"></textarea>
+
+                <button type="submit" id="btn-salvar" class="btn btn-save">SALVAR REGISTRO</button>
+            </form>
+            <div id="status" class="sync-status">Aguardando preenchimento...</div>
+        </div>
+
+        <div class="card">
+            <h3>Exportar Base de Dados</h3>
+            <div class="btn-group">
+                <button onclick="exportar('excel')" class="btn btn-excel">EXCEL (.xlsx)</button>
+                <button onclick="exportar('pdf')" class="btn btn-pdf">PDF (.pdf)</button>
             </div>
-
-            <button type="submit" class="btn btn-save">SALVAR EQUIPAMENTO</button>
-        </form>
+        </div>
     </div>
-
-    <nav class="nav-bottom">
-        <a href="#scan" class="nav-item">Novo</a>
-        <a href="#mapa" class="nav-item" onclick="initMap()">Mapa</a>
-        <a href="#dashboard" class="nav-item">Painel</a>
-    </nav>
-
     <script src="app.js"></script>
 </body>
 </html>
