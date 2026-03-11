@@ -5,7 +5,7 @@ let _supabase;
 
 function inicializarSupabase() {
     // Tenta encontrar 'supabase' ou 'window.supabase'
-    const supabaseLib = window.supabase || supabase;
+    const supabaseLib = window.supabase;
 
     if (supabaseLib) {
         _supabase = supabaseLib.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -17,9 +17,6 @@ function inicializarSupabase() {
     }
 }
 
-inicializarSupabase();
-
-// Inicia o processo de conexão
 inicializarSupabase();
 
 // 3. LÓGICA DO FORMULÁRIO (SALVAR)
@@ -110,5 +107,6 @@ async function exportar(formato) {
     }
     document.getElementById('status').innerText = "Concluído.";
 }
+
 
 
