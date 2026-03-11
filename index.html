@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="visual.css">
     <link rel="manifest" href="manifest.json">
 
-    <!-- 1. BIBLIOTECA DO SUPABASE (Link Completo e Estável) -->
-    <script src="https://cdn.jsdelivr.net"></script>
+    <!-- 1. CARREGAMENTO MODERNO DO SUPABASE (Estratégia à prova de falhas) -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net'
+        window.supabase = { createClient };
+        console.log("Biblioteca Supabase carregada no sistema.");
+    </script>
 
     <!-- 2. BIBLIOTECA PARA EXCEL (Link Completo) -->
     <script src="https://cdnjs.cloudflare.com"></script>
@@ -47,7 +51,7 @@
 
                 <button type="submit" id="btn-salvar" class="btn btn-save">SALVAR REGISTRO</button>
             </form>
-            <div id="status" class="sync-status">Aguardando conexão...</div>
+            <div id="status" class="sync-status">Aguardando conexão com o servidor...</div>
         </div>
 
         <div class="card">
@@ -59,7 +63,7 @@
         </div>
     </div>
 
-    <!-- O SEU CÓDIGO JS SEMPRE POR ÚLTIMO -->
-    <script src="app.js"></script>
+    <!-- O SEU CÓDIGO JS COM 'DEFER' PARA GARANTIR A ORDEM -->
+    <script src="app.js" defer></script>
 </body>
 </html>
