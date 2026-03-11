@@ -6,14 +6,20 @@
     <title>InvGov PWA</title>
     <link rel="stylesheet" href="visual.css">
     <link rel="manifest" href="manifest.json">
-    <!-- Bibliotecas Externas. -->
+
+    <!-- 1. BIBLIOTECA DO SUPABASE (ESSENCIAL PARA O BANCO DE DADOS) -->
     <script src="https://cdn.jsdelivr.net"></script>
+
+    <!-- 2. BIBLIOTECA PARA EXCEL -->
     <script src="https://cdnjs.cloudflare.com"></script>
-    <script src="https://cdnjs.cloudflare.com"></script>
-    <script src="https://cdnjs.cloudflare.com"></script>
+
+    <!-- 3. BIBLIOTECAS PARA PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
     <div class="header">INVENTÁRIO GOVERNAMENTAL</div>
+    
     <div class="container">
         <div class="card">
             <form id="form-inventario">
@@ -51,13 +57,16 @@
             </div>
         </div>
     </div>
-    <script src="app.js"></script>
 
-    <!-- Links COMPLETOS para as bibliotecas de exportação (CORREÇÃO AQUI) -->
+      <!-- Links COMPLETOS para as bibliotecas de exportação (CORREÇÃO AQUI) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+      <!-- O SEU CÓDIGO JS SEMPRE DEVE VIR POR ÚLTIMO -->
+    <script src="app.js"></script>
 </body>
 </html>
+
 
 
