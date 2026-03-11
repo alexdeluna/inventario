@@ -1,25 +1,23 @@
-// 1. CONFIGURAÇÕES REAIS DO SEU PROJETO
 const SUPABASE_URL = 'https://wzpaanrwayvkxiqpbblu.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6cGFhbnJ3YXl2a3hpcXBiYmx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzY2NDksImV4cCI6MjA4ODgxMjY0OX0.s-rMsbWCJUhv3z_O0zPA_2_yBy6ATJOEuLf1VqYMxjA'; 
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6cGFhbnJ3YXl2a3hpcXBiYmx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzY2NDksImV4cCI6MjA4ODgxMjY0OX0.s-rMsbWCJUhv3z_O0zPA_2_yBy6ATJOEuLf1VqYMxjA';
 
 let _supabase;
 
-// 2. INICIALIZAÇÃO BLINDADA (Aguarda o carregamento da biblioteca)
 function inicializarSupabase() {
-    if (window.supabase) {
-        try {
-            _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-            console.log("✅ Conexão com Supabase estabelecida com sucesso!");
-            const statusElement = document.getElementById('status');
-            if (statusElement) statusElement.innerText = "Sistema Online - Pronto.";
-        } catch (e) {
-            console.error("Erro ao criar cliente Supabase:", e);
-        }
+    // Tenta encontrar 'supabase' ou 'window.supabase'
+    const supabaseLib = window.supabase || supabase;
+
+    if (supabaseLib) {
+        _supabase = supabaseLib.createClient(SUPABASE_URL, SUPABASE_KEY);
+        console.log("✅ Banco Conectado!");
+        document.getElementById('status').innerText = "Sistema Online - Pronto.";
     } else {
-        console.warn("⚠️ Biblioteca Supabase ainda não carregou... tentando novamente.");
-        setTimeout(inicializarSupabase, 1000); // Tenta novamente em 1 segundo
+        console.log("⏳ Aguardando biblioteca...");
+        setTimeout(inicializarSupabase, 500);
     }
 }
+
+inicializarSupabase();
 
 // Inicia o processo de conexão
 inicializarSupabase();
@@ -112,3 +110,4 @@ async function exportar(formato) {
     }
     document.getElementById('status').innerText = "Concluído.";
 }
+
