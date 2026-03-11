@@ -7,20 +7,17 @@
     <link rel="stylesheet" href="visual.css">
     <link rel="manifest" href="manifest.json">
 
-    <!-- 1. CARREGAMENTO MODERNO DO SUPABASE (Estratégia à prova de falhas) -->
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net'
-        window.supabase = { createClient };
-        console.log("Biblioteca Supabase carregada no sistema.");
-    </script>
+    <!-- 1. BIBLIOTECA DO SUPABASE (Link COMPLETO e direto) -->
+    <script src="https://cdn.jsdelivr.net"></script>
 
-    <!-- 2. BIBLIOTECA PARA EXCEL (Link Completo) -->
+    <!-- 2. BIBLIOTECA PARA EXCEL -->
     <script src="https://cdnjs.cloudflare.com"></script>
 
-    <!-- 3. BIBLIOTECAS PARA PDF (Links Completos) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <!-- 3. BIBLIOTECAS PARA PDF -->
+    <script src="https://cdnjs.cloudflare.com"></script>
+    <script src="https://cdnjs.cloudflare.com"></script>
 </head>
+
 <body>
     <div class="header">INVENTÁRIO GOVERNAMENTAL</div>
     
@@ -67,3 +64,4 @@
     <script src="app.js" defer></script>
 </body>
 </html>
+
