@@ -1,5 +1,5 @@
 const SUPABASE_URL = 'https://wzpaanrwayvkxiqpbblu.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_R901IMT2sfdRFf4ARo6qkA_3Geb8l0m';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6cGFhbnJ3YXl2a3hpcXBiYmx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzY2NDksImV4cCI6MjA4ODgxMjY0OX0.s-rMsbWCJUhv3z_O0zPA_2_yBy6ATJOEuLf1VqYMxjA';
 const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const form = document.getElementById('form-inventario');
@@ -76,6 +76,7 @@ async function exportar(formato) {
     }
     statusMsg.innerText = "Exportação concluída.";
 }
+
 
 
 
